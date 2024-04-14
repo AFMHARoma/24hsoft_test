@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    networks:
+      - nw
+    env_file:
+      - .env
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  parser:
+    container_name: parser
+    build: .
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    networks:
+      - nw
+    volumes:
+      - ./log/py_log.log:/log/py_log.log
+      - ./config.json:/config.json:ro
+
+networks:
+  nw:
+
+volumes:
+  db-data:
+
