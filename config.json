@@ -4,5 +4,5 @@
     "filter_status_code_tournament": ["Draft", "Public", "Started"],
     "seek_forward_days": 30,
     "log_level": 1,
-    "sports_to_parse": ["football", "cs2", "basketball"]
+    "sports_to_parse": ["football", "cs2"]
 }

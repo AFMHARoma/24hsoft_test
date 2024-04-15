@@ -30,7 +30,7 @@ def async_logger(func):
 
 class DBGateway:
     def __init__(self) -> None:
-        conn_string = f'host=localhost port=5432 dbname=postgres user=postgres password={os.getenv("POSTGRES_PASSWORD")}'
+        conn_string = f'host={os.getenv("POSTGRES_HOST")} port=5432 dbname=postgres user=postgres password={os.getenv("POSTGRES_PASSWORD")}'
         self.pg_pool = psycopg_pool.AsyncConnectionPool(conninfo=conn_string, open=True)
 
     async def create_table(self, name) -> None:
