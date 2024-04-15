@@ -4,15 +4,13 @@ services:
     container_name: postgres
     image: postgres:14
     ports:
-      - "5432:5432"
+      - ${PGPORT}:${PGPORT}
     networks:
       - nw
-    env_file:
-      - .env
     environment:
       - PGDATA=/var/lib/postgresql/data
-    volumes:
-      - db-data:/var/lib/postgresql/data
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGPORT=${PGPORT}
 
   parser:
     container_name: parser
@@ -24,12 +22,8 @@ services:
     networks:
       - nw
     volumes:
-      - ./log/py_log.log:/log/py_log.log
+      - ./log/:/log/
       - ./config.json:/config.json:ro
 
 networks:
   nw:
-
-volumes:
-  db-data:
-

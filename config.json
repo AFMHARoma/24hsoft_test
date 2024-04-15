@@ -1,5 +1,5 @@
 {
-    "parse_interval_sec": 155,
+    "parse_interval_sec": 60,
     "filter_status_code_match": ["Planned"],
     "filter_status_code_tournament": ["Draft", "Public", "Started"],
     "seek_forward_days": 30,

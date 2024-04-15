@@ -31,7 +31,7 @@ def parse_time_logger(func):
 class DBGateway:
     def __init__(self) -> None:
         conn_string = (
-            f'host={os.getenv("POSTGRES_HOST")} port=5432 '
+            f'host={os.getenv("POSTGRES_HOST")} port={os.getenv("PGPORT")} '
             f'dbname=postgres user=postgres password={os.getenv("POSTGRES_PASSWORD")}'
         )
         self.pg_pool = psycopg_pool.AsyncConnectionPool(conninfo=conn_string, open=True)
@@ -105,7 +105,6 @@ class Parser:
     def format_for_base(prefix: str, data: list) -> list:
         formatted_data = []
         for tournament in data:
-            print(tournament)
             for match in tournament["upc_matches"]:
                 formatted_data.append(
                     [
@@ -287,10 +286,9 @@ async def main() -> None:
     logging.basicConfig(
         level=config.get("log_level", 1),
         filename="log/py_log.log",
-        filemode="w",
         format="%(asctime)s | %(levelname)s | %(message)s",
     )
-
+    logging.info('Script started')
     db_gateway = DBGateway()
     await EsportsBattleParser(config=config, db=db_gateway).start_parse()
 
